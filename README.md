@@ -17,3 +17,17 @@ Enable and set protocols allowed to be used to RpcOverNamedPipesAndTcp.
 Enable the setting via the registry:
 
 Run reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RPC" /v RpcProtocols /t REG_DWORD /d 0x7 /f
+
+
+Final script in reg file 
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RPC]
+"RpcUseNamedPipeProtocol"=dword:00000001
+"RpcProtocols"=dword:00000007
+"ForceKerberosForRpc"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print]
+"RpcAuthnLevelPrivacyEnabled"=dword:00000000
+```
