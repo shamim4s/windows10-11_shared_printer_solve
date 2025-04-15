@@ -59,6 +59,10 @@ d. Select Enabled > OK.
 ```
 # 5. On the Start Menu search, type powershell then under the Windows PowerShell app, click Run as administrator. Accept the elevation prompt.
 
+```
+powershell -Command "Start-Process PowerShell -Verb RunAs"
+```
+
 b. To disable SMB signing requirement, type:
 
  
