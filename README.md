@@ -1,23 +1,30 @@
 # windows10-11_shared_printer_solve
-
+# 1.
+```
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RPC" /v RpcUseNamedPipeProtocol /t REG_DWORD /d 1 /f
-
+```
+by Registry Edit.
+```
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print]
 "RpcAuthnLevelPrivacyEnabled"=dword:00000000
+```
 
 
 
+# 2.
 
 Enable via Group Policy:
-
-Path: Computer Configuration > Administrative Templates > Printers > Configure RPC listener settings
+```
+Computer Configuration > Administrative Templates > Printers > Configure RPC listener settings
 Enable and set protocols allowed to be used to RpcOverNamedPipesAndTcp.
+```
+
 Enable the setting via the registry:
-
+```
 Run reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RPC" /v RpcProtocols /t REG_DWORD /d 0x7 /f
-
+```
 
 Final script in reg file 
 ```
@@ -31,6 +38,46 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print]
 "RpcAuthnLevelPrivacyEnabled"=dword:00000000
 ```
+# 3.
+   A. Disable the SMB client signing requirement:
+```
+gpedit.msc
+
+b. In the console tree, select Computer Configuration > Windows Settings > Security Settings> Local Policies > Security Options.
+c. Double-click Microsoft network client: Digitally sign communications (always).
+d. Select Disabled > OK.
+```
+ 
+# 4.
+   B. Disable the guest fallback protection:
+```
+gpedit.msc
+
+b. In the console tree, select Computer Configuration > Administrative Templates> Network > Lanman Workstation.
+c. Double-click Enable insecure guest logons
+d. Select Enabled > OK.
+```
+# 5. On the Start Menu search, type powershell then under the Windows PowerShell app, click Run as administrator. Accept the elevation prompt.
+
+b. To disable SMB signing requirement, type:
+
+ 
+```
+Set-SmbClientConfiguration -RequireSecuritySignature $false
+```
+d. Hit enter, then hit Y to accept.
+
+c. To disable guest fallback, type: 
+
+ 
+```
+Set-SmbClientConfiguration -EnableInsecureGuestLogons $true
+```
+e. Hit enter, then hit Y to accept.
+
+ 
+
+
 
 Or run these on command prompt 
 ```
