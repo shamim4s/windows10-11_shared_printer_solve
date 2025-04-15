@@ -57,7 +57,17 @@ b. In the console tree, select Computer Configuration > Administrative Templates
 c. Double-click Enable insecure guest logons
 d. Select Enabled > OK.
 ```
-# 5. On the Start Menu search, type powershell then under the Windows PowerShell app, click Run as administrator. Accept the elevation prompt.
+
+# 5.
+```
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
+
+Registry DWORD 32-bit key value = AllowInsecureGuestAuth
+
+'1'
+```
+
+# 6. On the Start Menu search, type powershell then under the Windows PowerShell app, click Run as administrator. Accept the elevation prompt.
 
 ```
 powershell -Command "Start-Process PowerShell -Verb RunAs"
