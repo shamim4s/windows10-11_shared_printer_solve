@@ -108,6 +108,8 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\
 
 Set-SmbClientConfiguration -RequireSecuritySignature $false -Force
 Set-SmbClientConfiguration -EnableInsecureGuestLogons $true -Force
+wusa /uninstall /kb:5072033
+bye
 
 ```
 
@@ -127,5 +129,7 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\
 
 powershell -Command "Set-SmbClientConfiguration -RequireSecuritySignature $false -Force"
 powershell -Command "Set-SmbClientConfiguration -EnableInsecureGuestLogons $true -Force"
+wusa /uninstall /kb:5072033
+bye
 
 ```
